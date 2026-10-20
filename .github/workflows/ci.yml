@@ -6,38 +6,25 @@ on:
   pull_request:
 
 jobs:
-  frontend:
+  verify:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: frontend
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          version: 12.14.0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm typecheck
-      - run: pnpm test:unit
-      - run: pnpm build
-
-  backend:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: backend
-    env:
-      PYTHONPATH: .
-    steps:
-      - uses: actions/checkout@v4
+      - run: pnpm --dir frontend install --frozen-lockfile
+      - run: pnpm --dir frontend typecheck
+      - run: pnpm --dir frontend test:unit
+      - run: pnpm --dir frontend build
       - uses: astral-sh/setup-uv@v5
         with:
           python-version: "3.12"
-      - run: uv sync --extra dev
-      - run: uv run pytest -q
-      - run: uv run alembic upgrade head --sql > /dev/null
+      - run: uv sync --directory backend --extra dev
+      - run: uv run --directory backend python -m compileall -q app
+      - run: uv run --directory backend alembic upgrade head --sql > /dev/null
