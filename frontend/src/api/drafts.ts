@@ -1,108 +1,27 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  createDraft,
-  getDraft,
-  listDrafts,
-  lockDraft,
-  meApiAuthMeGet,
-  updateDraft,
-} from "../client/sdk.gen";
 import type { DraftResponse, DraftUpdateRequest } from "../client/types.gen";
 
 export type { DraftResponse, DraftUpdateRequest };
 
-// ── Draft list ────────────────────────────────────────────────────────────────
+const KEY = "humanfirst-drafts";
+const now = () => new Date().toISOString();
+const read = (): DraftResponse[] => JSON.parse(localStorage.getItem(KEY) ?? "[]");
+const write = (drafts: DraftResponse[]) => localStorage.setItem(KEY, JSON.stringify(drafts));
+const words = (body: string) => body.trim() ? body.trim().split(/\s+/).length : 0;
 
-export function useGetDrafts(enabled = true) {
-  return useQuery({
-    queryKey: ["drafts"],
-    queryFn: async () => {
-      const res = await listDrafts();
-      return res.data.items;
-    },
-    enabled,
-  });
+type LocalDraftPatch = DraftUpdateRequest & Partial<Pick<DraftResponse, "status" | "locked_at">>;
+function update(id: string, patch: LocalDraftPatch) {
+  const drafts = read();
+  const index = drafts.findIndex((draft) => draft.id === id);
+  if (index < 0) throw new Error("Draft not found");
+  const current = drafts[index];
+  const next = { ...current, ...patch, word_count: patch.word_count ?? words(patch.body ?? current.body), updated_at: now() } as DraftResponse;
+  drafts[index] = next; write(drafts); return next;
 }
 
-// ── Create draft ──────────────────────────────────────────────────────────────
-
-export function useCreateDraft() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (title: string) => {
-      const res = await createDraft({ body: { title: title || undefined } });
-      return res.data;
-    },
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: ["drafts"] });
-    },
-  });
-}
-
-// ── Single draft ──────────────────────────────────────────────────────────────
-
-export function useDraft(draftId: string | undefined) {
-  return useQuery({
-    queryKey: ["draft", draftId],
-    queryFn: async () => {
-      const res = await getDraft({ path: { draft_id: draftId! } });
-      return res.data;
-    },
-    enabled: Boolean(draftId),
-  });
-}
-
-export function useUpdateDraft(draftId: string | undefined) {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (payload: DraftUpdateRequest) => {
-      const res = await updateDraft({ path: { draft_id: draftId! }, body: payload });
-      return res.data;
-    },
-    onSuccess: (draft) => {
-      queryClient.setQueryData(["draft", draftId], draft);
-      void queryClient.invalidateQueries({ queryKey: ["drafts"] });
-    },
-  });
-}
-
-// ── Finalize (patch + lock) ───────────────────────────────────────────────────
-
-export function useFinalizeDraftLock(draftId: string | undefined) {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async (payload: DraftUpdateRequest) => {
-      let latest: DraftResponse | null = null;
-
-      if (draftId && Object.keys(payload).length > 0) {
-        const saved = await updateDraft({ path: { draft_id: draftId }, body: payload });
-        latest = saved.data;
-      }
-
-      const locked = await lockDraft({ path: { draft_id: draftId! } });
-      return locked.data ?? latest;
-    },
-    onSuccess: (draft) => {
-      queryClient.setQueryData(["draft", draftId], draft);
-      void queryClient.invalidateQueries({ queryKey: ["drafts"] });
-    },
-  });
-}
-
-// ── MCP status (checks /api/auth/me — token presence implies MCP configured) ──
-
-export function useMcpPing(enabled = true) {
-  return useQuery({
-    queryKey: ["mcp-ping"],
-    queryFn: async () => {
-      const res = await meApiAuthMeGet();
-      // MCP is "connected" when the user has an mcp_token (always present after register)
-      return { ok: Boolean(res.data?.user?.mcp_token), token: res.data?.user?.mcp_token };
-    },
-    enabled,
-    staleTime: 30_000,
-  });
-}
+export function useGetDrafts(enabled = true) { return useQuery({ queryKey: ["drafts"], queryFn: () => read(), enabled }); }
+export function useCreateDraft() { const qc = useQueryClient(); return useMutation({ mutationFn: async (title: string) => { const timestamp = now(); const draft: DraftResponse = { id: crypto.randomUUID(), author_id: "local-author", title: title || "", body: "", status: "draft", word_count: 0, keystroke_count: 0, session_duration_seconds: 0, pause_events: 0, paste_attempts: 0, reading_time_minutes: 0, locked_at: null, created_at: timestamp, updated_at: timestamp }; write([draft, ...read()]); return draft; }, onSuccess: () => void qc.invalidateQueries({ queryKey: ["drafts"] }) }); }
+export function useDraft(id: string | undefined) { return useQuery({ queryKey: ["draft", id], queryFn: () => { const draft = read().find((item) => item.id === id); if (!draft) throw new Error("Draft not found"); return draft; }, enabled: Boolean(id) }); }
+export function useUpdateDraft(id: string | undefined) { const qc = useQueryClient(); return useMutation({ mutationFn: async (patch: LocalDraftPatch) => update(id!, patch), onSuccess: (draft) => { qc.setQueryData(["draft", id], draft); void qc.invalidateQueries({ queryKey: ["drafts"] }); } }); }
+export function useFinalizeDraftLock(id: string | undefined) { const qc = useQueryClient(); return useMutation({ mutationFn: async (patch: DraftUpdateRequest) => update(id!, { ...patch, status: "locked", locked_at: now() }), onSuccess: (draft) => { qc.setQueryData(["draft", id], draft); void qc.invalidateQueries({ queryKey: ["drafts"] }); } }); }
+export function useMcpPing(enabled = true) { return useQuery({ queryKey: ["mcp-ping"], queryFn: async () => ({ ok: true, token: "local-demo" }), enabled, staleTime: Infinity }); }
