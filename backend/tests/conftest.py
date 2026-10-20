@@ -1,4 +1,3 @@
-import asyncio
 import importlib
 import os
 import sys
@@ -9,75 +8,6 @@ from uuid import UUID, uuid4
 
 import pytest
 import pytest_asyncio
-from fastapi.testclient import TestClient
-from sqlalchemy import delete
-
-from app.db.models.draft import Draft
-from app.db.session import AsyncSessionLocal
-from app.main import app
-
-
-@pytest.fixture(scope="function")
-def client() -> TestClient:
-    with TestClient(app) as c:
-        yield c
-
-
-@pytest.fixture(scope="function", autouse=True)
-def reset_demo_drafts(client: TestClient) -> None:
-    async def _reset() -> None:
-        async with AsyncSessionLocal() as session:
-            await session.execute(delete(Draft))
-            session.add_all(
-                [
-                    Draft(
-                        id=1,
-                        title="MCP onboarding note",
-                        body_text=(
-                            "Summarize the draft goal.\n\n"
-                            "Capture the main reasoning steps.\n\n"
-                            "Leave the final handoff clean."
-                        ),
-                        requires_mcp_setup=True,
-                    ),
-                    Draft(
-                        id=2,
-                        title="Release preview note",
-                        body_text=(
-                            "Locking should freeze writing.\n\n"
-                            "Preview should stay available after the transition."
-                        ),
-                        requires_mcp_setup=False,
-                    ),
-                ]
-            )
-            await session.commit()
-
-    import asyncio
-
-    asyncio.run(_reset())
-
-
-@pytest.fixture(scope="function")
-def run_db() -> callable:
-    def _run(coro):
-        import asyncio
-
-        return asyncio.run(coro)
-
-    return _run
-
-
-@pytest.fixture(scope="function")
-def get_draft_row(run_db):
-    def _get_draft_row(draft_id: int) -> Draft | None:
-        async def _load() -> Draft | None:
-            async with AsyncSessionLocal() as session:
-                return await session.get(Draft, draft_id)
-
-        return run_db(_load())
-
-    return _get_draft_row
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker
 

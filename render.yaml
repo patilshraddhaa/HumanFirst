@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: humanfirst
+    runtime: docker
+    plan: starter
+    healthCheckPath: /healthz
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: humanfirst-db
+          property: connectionString
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: CORS_ORIGINS
+        value: https://humanfirst.onrender.com
+databases:
+  - name: humanfirst-db
+    plan: basic-256mb

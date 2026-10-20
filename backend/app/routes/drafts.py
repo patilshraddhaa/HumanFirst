@@ -92,6 +92,7 @@ def _materialize_human_sections(draft: Draft) -> list[Section]:
             content=paragraph,
             word_count=_count_words(paragraph),
             created_via=SectionCreationSource.LOCK_MATERIALIZATION,
+            position_after_paragraph=ordinal,
         )
         for ordinal, paragraph in enumerate(_split_body_paragraphs(draft.body), start=1)
     ]
