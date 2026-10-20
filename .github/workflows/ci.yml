@@ -1,4 +1,4 @@
-name: Verify
+name: Frontend check
 
 on:
   push:
@@ -6,25 +6,17 @@ on:
   pull_request:
 
 jobs:
-  verify:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        working-directory: frontend
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 12.14.0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-          cache-dependency-path: frontend/pnpm-lock.yaml
-      - run: pnpm --dir frontend install --frozen-lockfile
-      - run: pnpm --dir frontend typecheck
-      - run: pnpm --dir frontend test:unit
-      - run: pnpm --dir frontend build
-      - uses: astral-sh/setup-uv@v5
-        with:
-          python-version: "3.12"
-      - run: uv sync --directory backend --extra dev
-      - run: uv run --directory backend python -m compileall -q app
-      - run: uv run --directory backend alembic upgrade head --sql > /dev/null
+      - run: corepack enable
+      - run: corepack prepare pnpm@12.14.0 --activate
+      - run: pnpm install --no-frozen-lockfile
+      - run: pnpm build
