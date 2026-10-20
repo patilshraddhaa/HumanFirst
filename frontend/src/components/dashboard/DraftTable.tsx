@@ -22,7 +22,9 @@ export function DraftTable({ drafts }: DraftTableProps) {
       <div className="divide-y divide-ml-grey-lightest">
         {drafts.map((draft) => {
           const title = (draft.title ?? "").trim() || "Untitled";
-          const continuePath = `/drafts/${draft.id}/edit`;
+          const continuePath = draft.locked_at
+            ? `/drafts/${draft.id}/setup`
+            : `/drafts/${draft.id}/edit`;
           const publicPath = continuePath;
 
           return (

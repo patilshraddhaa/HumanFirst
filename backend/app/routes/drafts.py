@@ -133,7 +133,7 @@ async def list_drafts(
 ) -> DraftListResponse:
     result = await session.execute(
         select(Draft)
-        .where(Draft.author_id == current_user.id, Draft.locked_at.is_(None))
+        .where(Draft.author_id == current_user.id)
         .order_by(Draft.updated_at.desc(), Draft.id.desc())
     )
     drafts = result.scalars().all()
@@ -146,7 +146,7 @@ async def get_draft(
     current_user: User = Depends(get_current_user),
     session: AsyncSession = Depends(get_session),
 ) -> DraftResponse:
-    draft = await _get_owned_unlocked_draft(session, draft_id, current_user.id)
+    draft = await _get_owned_draft(session, draft_id, current_user.id)
     return DraftResponse.model_validate(draft)
 
 
