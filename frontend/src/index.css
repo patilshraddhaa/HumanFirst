@@ -6,6 +6,21 @@
 
 @layer base {
   :root {
+    --background: 40 33% 97%;
+    --foreground: 158 16% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 158 16% 14%;
+    --primary: 162 50% 26%;
+    --primary-foreground: 45 33% 98%;
+    --secondary: 154 28% 91%;
+    --secondary-foreground: 158 29% 20%;
+    --muted: 38 20% 93%;
+    --muted-foreground: 158 8% 39%;
+    --accent: 14 64% 91%;
+    --accent-foreground: 14 46% 25%;
+    --border: 34 18% 85%;
+    --input: 34 18% 85%;
+    --ring: 162 50% 26%;
     font-family: "Space Grotesk", sans-serif;
     color: #1c1917;
     background: #f5efe3;

@@ -6,9 +6,9 @@ import { LoginPage } from "./routes/landing/LoginPage";
 import { DashboardPage } from "./routes/dashboard/DashboardPage";
 import {
   DraftEditorPage,
-  DraftPreviewPage,
-  DraftSetupPage,
 } from "./features/draft-flow";
+import { DraftPreviewPage } from "./routes/drafts/preview/DraftPreviewPage";
+import { MCPSetupPage } from "./routes/drafts/setup/MCPSetupPage";
 import { WriteEditor } from "./features/write-editor";
 import { PublicReadPage } from "./routes/posts/read/PublicReadPage";
 
@@ -48,7 +48,7 @@ function AppRoutes() {
         path="/drafts/:draftId/setup"
         element={
           <ProtectedRoute>
-            <DraftSetupPage />
+            <MCPSetupPage />
           </ProtectedRoute>
         }
       />

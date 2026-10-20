@@ -34,7 +34,7 @@ export function DashboardPage() {
 
     try {
       const draft = await createDraft.mutateAsync("");
-      navigate(`/drafts/${draft.id}/write`);
+      navigate(`/drafts/${draft.id}/edit`);
     } catch (error) {
       setErrorToast(getErrorMessage(error, "Failed to create a new draft."));
     }

@@ -4,6 +4,31 @@ export default {
   theme: {
     extend: {
       colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
         "ml-red": "#A20B0B",
         "ml-red-light": "#F6C9C9",
         "ml-red-disabled": "#C07070",
@@ -15,7 +40,6 @@ export default {
         "ml-grey-lighter": "#D0D0D0",
         "ml-grey-dark": "#5C5C5C",
         "ml-grey-darker": "#3D4552",
-        foreground: "#1B1B1B",
         "muted-foreground": "#9C9C9C",
         destructive: "#DC2626",
         "destructive-bg": "#FEF2F2",

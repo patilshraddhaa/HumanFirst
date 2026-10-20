@@ -53,6 +53,21 @@ export function useDraft(draftId: string | undefined) {
   });
 }
 
+export function useUpdateDraft(draftId: string | undefined) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (payload: DraftUpdateRequest) => {
+      const res = await updateDraft({ path: { draft_id: draftId! }, body: payload });
+      return res.data;
+    },
+    onSuccess: (draft) => {
+      queryClient.setQueryData(["draft", draftId], draft);
+      void queryClient.invalidateQueries({ queryKey: ["drafts"] });
+    },
+  });
+}
+
 // ── Finalize (patch + lock) ───────────────────────────────────────────────────
 
 export function useFinalizeDraftLock(draftId: string | undefined) {
