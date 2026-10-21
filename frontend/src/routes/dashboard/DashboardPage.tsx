@@ -57,7 +57,7 @@ export function DashboardPage() {
           type="button"
           onClick={handleCreateDraft}
           disabled={createDraft.isPending}
-          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition disabled:cursor-not-allowed"
+          className="inline-flex h-10 items-center justify-center border border-foreground bg-primary px-4 text-sm font-medium text-primary-foreground shadow-[3px_3px_0_#151515] transition disabled:cursor-not-allowed"
         >
           <Plus className="mr-1.5 h-4 w-4" />{createDraft.isPending ? "Creating..." : "New draft"}
         </button>
@@ -94,7 +94,7 @@ export function DashboardPage() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 border-y border-border py-5 md:grid-cols-[1fr_16rem]">
+        <div className="mt-10 grid gap-6 border-y border-border bg-[#f7f6f1] px-5 py-5 md:grid-cols-[1fr_16rem]">
           <section>
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">A simple rule</p>
             <p className="mt-2 max-w-xl font-serif text-xl leading-8">Form your position before you ask AI to improve it.</p>

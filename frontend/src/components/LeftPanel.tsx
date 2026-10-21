@@ -1,13 +1,13 @@
 export function LeftPanel() {
   return (
-    <aside className="relative hidden min-h-screen flex-1 overflow-hidden bg-[#1b1b1a] px-16 py-14 text-white lg:flex">
+    <aside className="relative hidden min-h-screen flex-1 overflow-hidden border-r border-black bg-[#151515] px-16 py-14 text-white lg:flex">
       <div className="relative z-10 flex max-w-xl flex-col">
         <p className="flex items-center gap-2 text-[1.3rem] font-semibold tracking-[-0.04em]"><span className="grid h-7 w-7 place-items-center border border-white font-mono text-xs">H</span>HumanFirst</p>
 
         <div className="mt-28">
           <p className="font-mono text-xs uppercase tracking-[0.15em] text-white/50">A writing workspace</p>
           <h1 className="mt-5 font-serif text-[4.4rem] font-medium leading-[0.94] tracking-[-0.06em] text-white">
-            Think first.<br /><span className="text-[#a9c3f5]">Then ask.</span>
+            Think first.<br /><span className="text-[#8facff]">Then ask.</span>
           </h1>
         </div>
 
@@ -15,11 +15,11 @@ export function LeftPanel() {
           Start with your own point of view. Bring in AI only when you are ready for a thoughtful challenge.
         </p>
 
-        <div className="mt-14 grid max-w-sm gap-0 border-y border-white/20">
+        <div className="mt-14 grid max-w-sm gap-0 border-y border-white/30">
           {[
-            "1 Write",
-            "2 Enrich with your AI",
-            "3 Publish transparently",
+            "Write",
+            "Enrich with your AI",
+            "Publish transparently",
           ].map((label) => (
             <div
               key={label}
