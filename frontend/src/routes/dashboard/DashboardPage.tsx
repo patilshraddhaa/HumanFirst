@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Flame, Plus } from "lucide-react";
+import { ArrowUpRight, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import { useCreateDraft, useGetDrafts, useMcpPing } from "../../api/drafts";
@@ -57,9 +57,9 @@ export function DashboardPage() {
           type="button"
           onClick={handleCreateDraft}
           disabled={createDraft.isPending}
-          className="inline-flex h-11 items-center justify-center rounded-2xl bg-primary px-5 text-sm font-bold text-primary-foreground shadow-[0_4px_0_rgba(19,103,88,0.4)] transition hover:-translate-y-px disabled:cursor-not-allowed"
+          className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition disabled:cursor-not-allowed"
         >
-          <Plus className="mr-1.5 h-4 w-4" />{createDraft.isPending ? "Creating..." : "New thought"}
+          <Plus className="mr-1.5 h-4 w-4" />{createDraft.isPending ? "Creating..." : "New draft"}
         </button>
         <div className="flex items-center gap-3 rounded-full border border-ml-grey-lightest bg-white px-2 py-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5C6070] text-sm font-semibold text-white">
@@ -84,25 +84,22 @@ export function DashboardPage() {
       </Topbar>
 
       <main className="mx-auto max-w-[1160px] px-6 py-10 lg:px-12">
-        <div className="max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-            Your thinking space
-          </p>
-          <h1 className="mt-2 font-serif text-[3.5rem] font-semibold tracking-[-0.06em] text-foreground">
-            Welcome back, {user.name?.split(" ")[0] ?? "writer"}.
+        <div className="max-w-3xl">
+          <p className="hf-kicker">Library</p>
+          <h1 className="mt-3 font-serif text-[3.5rem] font-medium tracking-[-0.06em] text-foreground">
+            Welcome, {user.name?.split(" ")[0] ?? "writer"}.
           </h1>
-          <p className="mt-3 text-lg text-ml-grey-dark">
-            {draftsQuery.isSuccess ? `${draftsQuery.data.length} ideas in progress · ${publishedCount} shared` : "A calm place to build stronger ideas."}
+          <p className="mt-4 text-base leading-7 text-muted-foreground">
+            {draftsQuery.isSuccess ? `${draftsQuery.data.length} drafts · ${publishedCount} published` : "A place to form a point of view before AI enters."}
           </p>
         </div>
 
-        <div className="mt-8 grid gap-5 md:grid-cols-[1fr_18rem]">
-          <section className="rounded-3xl border border-[#ecdcb6] bg-[#fff0c7] p-6 shadow-[0_5px_0_rgba(146,103,28,0.12)]">
-            <div className="flex items-start gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#ffcc65] text-[#704900]"><Flame className="h-5 w-5" /></span><div><p className="font-bold">One small practice today</p><p className="mt-1 text-sm leading-6 text-[#675735]">Write one honest paragraph before asking AI for a perspective.</p></div></div>
+        <div className="mt-10 grid gap-6 border-y border-border py-5 md:grid-cols-[1fr_16rem]">
+          <section>
+            <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">A simple rule</p>
+            <p className="mt-2 max-w-xl font-serif text-xl leading-8">Form your position before you ask AI to improve it.</p>
           </section>
-          <section className="rounded-3xl border border-[#b9e2d7] bg-[#e3f7f0] p-6 shadow-[0_5px_0_rgba(27,117,97,0.1)]">
-            <p className="hf-kicker">Your streak</p><p className="mt-1 font-serif text-3xl font-semibold">Start today</p><p className="mt-1 text-sm text-muted-foreground">One thought is enough.</p>
-          </section>
+          <button type="button" onClick={handleCreateDraft} className="flex items-center justify-between border-l border-border pl-5 text-left text-sm hover:text-primary"><span>Start with a blank page</span><ArrowUpRight className="h-4 w-4" /></button>
         </div>
 
         <div className="mt-8">

@@ -1,21 +1,21 @@
 export function LeftPanel() {
   return (
-    <aside className="relative hidden min-h-screen flex-1 overflow-hidden bg-[#163d35] px-16 py-14 text-white lg:flex">
+    <aside className="relative hidden min-h-screen flex-1 overflow-hidden bg-[#1b1b1a] px-16 py-14 text-white lg:flex">
       <div className="relative z-10 flex max-w-xl flex-col">
-        <p className="flex items-center gap-2 text-[1.5rem] font-bold tracking-[-0.04em]"><span className="grid h-8 w-8 place-items-center rounded-xl bg-[#ffcc65] text-sm text-[#163d35]">H</span>HumanFirst</p>
+        <p className="flex items-center gap-2 text-[1.3rem] font-semibold tracking-[-0.04em]"><span className="grid h-7 w-7 place-items-center border border-white font-mono text-xs">H</span>HumanFirst</p>
 
         <div className="mt-28">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#9ee2cf]">Make thinking a practice</p>
-          <h1 className="mt-5 font-serif text-[4.4rem] font-semibold leading-[0.94] tracking-[-0.06em] text-white">
-            Your ideas.<br /><span className="text-[#ffcc65]">Stronger.</span><br />Still yours.
+          <p className="font-mono text-xs uppercase tracking-[0.15em] text-white/50">A writing workspace</p>
+          <h1 className="mt-5 font-serif text-[4.4rem] font-medium leading-[0.94] tracking-[-0.06em] text-white">
+            Think first.<br /><span className="text-[#a9c3f5]">Then ask.</span>
           </h1>
         </div>
 
-        <p className="mt-9 max-w-sm text-lg leading-8 text-white/70">
+        <p className="mt-9 max-w-sm text-base leading-7 text-white/65">
           Start with your own point of view. Bring in AI only when you are ready for a thoughtful challenge.
         </p>
 
-        <div className="mt-14 grid max-w-sm gap-3">
+        <div className="mt-14 grid max-w-sm gap-0 border-y border-white/20">
           {[
             "1 Write",
             "2 Enrich with your AI",
@@ -23,9 +23,9 @@ export function LeftPanel() {
           ].map((label) => (
             <div
               key={label}
-              className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/10 px-5 py-4"
+              className="flex items-center gap-3 border-b border-white/10 px-1 py-4 last:border-0"
             >
-              <span className="grid h-6 w-6 place-items-center rounded-full bg-[#ffcc65] text-xs font-bold text-[#163d35]">{label[0]}</span>
+              <span className="font-mono text-xs text-[#a9c3f5]">{label.slice(0, 1)}</span>
               <span className="text-sm font-medium text-hf-panel-step">
                 {label}
               </span>

@@ -17,14 +17,14 @@ export function Topbar({
   connected,
 }: TopbarProps) {
   return (
-    <header className="sticky top-0 z-20 border-b border-border/70 bg-[#fffaf0]/90 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-border bg-[#f7f6f1]/90 backdrop-blur">
       <div className="mx-auto flex h-[4.5rem] max-w-[1160px] items-center justify-between gap-4 px-6 lg:px-12">
         <div className="flex items-center gap-5">
           <Link
             to="/dashboard"
-            className="flex items-center gap-2 text-[1.35rem] font-bold tracking-[-0.05em] text-foreground"
+            className="flex items-center gap-2 text-[1.1rem] font-semibold tracking-[-0.04em] text-foreground"
           >
-            <span className="grid h-8 w-8 place-items-center rounded-xl bg-primary text-sm text-primary-foreground">H</span>HumanFirst
+            <span className="grid h-7 w-7 place-items-center border border-foreground font-mono text-xs">H</span>HumanFirst
           </Link>
           {backHref && backLabel ? (
             <Link className="text-sm font-semibold text-ml-blue" to={backHref}>

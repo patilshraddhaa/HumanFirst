@@ -41,7 +41,7 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#fffaf0] lg:flex">
+    <div className="min-h-screen bg-[#f7f6f1] lg:flex">
       <LeftPanel />
       <main className="flex flex-1 items-center justify-center px-6 py-12 lg:px-12">
         <div className="w-full max-w-[34rem]">
@@ -62,7 +62,7 @@ export function LoginPage() {
             </div>
           ) : null}
 
-          <div className="mt-8 rounded-3xl border border-border bg-white px-6 py-7 shadow-[0_7px_0_rgba(41,88,78,0.08)] lg:px-8">
+          <div className="mt-8 border border-border bg-white px-6 py-7 lg:px-8">
             <form className="grid gap-5" onSubmit={handleSubmit}>
               <label className="grid gap-2 text-sm font-medium text-foreground">
                 <span>Email</span>
@@ -71,7 +71,7 @@ export function LoginPage() {
                   value={email}
                   onChange={(event) => setEmail(event.target.value)}
                   placeholder="you@example.com"
-                  className="h-12 rounded-2xl border border-input bg-[#fffdf8] px-4 text-base text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="h-12 rounded-md border border-input bg-[#fffefa] px-4 text-base text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
 
@@ -82,14 +82,14 @@ export function LoginPage() {
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   placeholder="Your password"
-                  className="h-12 rounded-2xl border border-input bg-[#fffdf8] px-4 text-base text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className="h-12 rounded-md border border-input bg-[#fffefa] px-4 text-base text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </label>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-2 inline-flex h-12 items-center justify-center rounded-2xl bg-primary px-5 text-sm font-bold text-primary-foreground shadow-[0_4px_0_rgba(19,103,88,0.4)] transition hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-50"
+                className="mt-2 inline-flex h-12 items-center justify-center rounded-md bg-primary px-5 text-sm font-medium text-primary-foreground transition disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isSubmitting ? "Signing in..." : "Sign in"}
               </button>

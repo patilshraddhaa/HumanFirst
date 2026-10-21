@@ -11,8 +11,8 @@ type DraftTableProps = {
 
 export function DraftTable({ drafts }: DraftTableProps) {
   return (
-    <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-[0_7px_0_rgba(41,88,78,0.08)]">
-      <div className="flex items-center justify-between border-b border-border px-6 py-5"><div><p className="hf-kicker">Your library</p><p className="mt-1 font-serif text-2xl font-semibold">Ideas you are growing</p></div><span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">{drafts.length} total</span></div>
+    <div className="overflow-hidden border-y border-border bg-white">
+      <div className="flex items-center justify-between border-b border-border px-6 py-5"><div><p className="hf-kicker">Your library</p><p className="mt-1 font-serif text-2xl font-medium">Drafts and essays</p></div><span className="font-mono text-xs text-muted-foreground">{drafts.length} total</span></div>
       <div className="hidden grid-cols-[minmax(0,2.6fr)_1fr_0.7fr_1fr_1fr] gap-4 border-b border-border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground md:grid">
         <span>Title</span>
         <span>Status</span>
@@ -33,7 +33,7 @@ export function DraftTable({ drafts }: DraftTableProps) {
               key={draft.id}
               className={cn(
                 "grid gap-3 px-6 py-5 transition md:grid-cols-[minmax(0,2.6fr)_1fr_0.7fr_1fr_1fr]",
-                "hover:bg-[#fffaf0]",
+                "hover:bg-[#f7f6f1]",
               )}
             >
               <div>
@@ -58,7 +58,7 @@ export function DraftTable({ drafts }: DraftTableProps) {
               <div className="flex items-center gap-4 text-sm font-medium">
                 <Link
                   to={continuePath}
-                  className="text-ml-blue transition hover:text-[#143b60]"
+                  className="text-primary transition hover:underline"
                 >
                   Continue →
                 </Link>
