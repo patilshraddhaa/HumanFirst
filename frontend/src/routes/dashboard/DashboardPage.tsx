@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Flame, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import { useCreateDraft, useGetDrafts, useMcpPing } from "../../api/drafts";
@@ -41,7 +42,7 @@ export function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white-200">
+    <div className="hf-page">
       <Topbar
         center={
           <McpConnectionChip
@@ -56,9 +57,9 @@ export function DashboardPage() {
           type="button"
           onClick={handleCreateDraft}
           disabled={createDraft.isPending}
-          className="inline-flex h-11 items-center justify-center rounded-[14px] bg-ml-red px-5 text-sm font-semibold text-white transition hover:bg-[#8f0909] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ml-red focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-ml-red-disabled"
+          className="inline-flex h-11 items-center justify-center rounded-2xl bg-primary px-5 text-sm font-bold text-primary-foreground shadow-[0_4px_0_rgba(19,103,88,0.4)] transition hover:-translate-y-px disabled:cursor-not-allowed"
         >
-          {createDraft.isPending ? "Creating..." : "+ New draft"}
+          <Plus className="mr-1.5 h-4 w-4" />{createDraft.isPending ? "Creating..." : "New thought"}
         </button>
         <div className="flex items-center gap-3 rounded-full border border-ml-grey-lightest bg-white px-2 py-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5C6070] text-sm font-semibold text-white">
@@ -82,19 +83,26 @@ export function DashboardPage() {
         </div>
       </Topbar>
 
-      <main className="mx-auto max-w-[1440px] px-6 py-10 lg:px-12">
+      <main className="mx-auto max-w-[1160px] px-6 py-10 lg:px-12">
         <div className="max-w-4xl">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-            Authenticated workspace
+            Your thinking space
           </p>
-          <h1 className="mt-3 font-display text-[3.4rem] font-semibold tracking-[-0.06em] text-foreground">
-            My drafts
+          <h1 className="mt-2 font-serif text-[3.5rem] font-semibold tracking-[-0.06em] text-foreground">
+            Welcome back, {user.name?.split(" ")[0] ?? "writer"}.
           </h1>
           <p className="mt-3 text-lg text-ml-grey-dark">
-            {draftsQuery.isSuccess
-              ? `${draftsQuery.data.length} drafts · ${publishedCount} published`
-              : "Recent work, draft status, and MCP connection health for this author."}
+            {draftsQuery.isSuccess ? `${draftsQuery.data.length} ideas in progress · ${publishedCount} shared` : "A calm place to build stronger ideas."}
           </p>
+        </div>
+
+        <div className="mt-8 grid gap-5 md:grid-cols-[1fr_18rem]">
+          <section className="rounded-3xl border border-[#ecdcb6] bg-[#fff0c7] p-6 shadow-[0_5px_0_rgba(146,103,28,0.12)]">
+            <div className="flex items-start gap-4"><span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-[#ffcc65] text-[#704900]"><Flame className="h-5 w-5" /></span><div><p className="font-bold">One small practice today</p><p className="mt-1 text-sm leading-6 text-[#675735]">Write one honest paragraph before asking AI for a perspective.</p></div></div>
+          </section>
+          <section className="rounded-3xl border border-[#b9e2d7] bg-[#e3f7f0] p-6 shadow-[0_5px_0_rgba(27,117,97,0.1)]">
+            <p className="hf-kicker">Your streak</p><p className="mt-1 font-serif text-3xl font-semibold">Start today</p><p className="mt-1 text-sm text-muted-foreground">One thought is enough.</p>
+          </section>
         </div>
 
         <div className="mt-8">

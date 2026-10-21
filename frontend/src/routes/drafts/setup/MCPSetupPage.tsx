@@ -73,10 +73,11 @@ export function MCPSetupPage() {
     navigate(`/drafts/${draftId}/preview`);
   }
 
-  return <main className="min-h-screen bg-background px-5 py-8 text-foreground md:px-10">
+  return <main className="hf-page px-5 py-8 text-foreground md:px-10">
     <div className="mx-auto max-w-5xl">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">Step 2 · Stress-test your thinking</p>
-      <h1 className="mt-2 max-w-3xl font-serif text-4xl tracking-tight md:text-5xl">Let AI sharpen the argument—without taking it over.</h1>
+      <div className="mb-8 rounded-3xl border border-border bg-card p-4 shadow-[0_4px_0_rgba(41,88,78,0.08)]"><div className="mb-3 flex justify-between text-xs font-bold uppercase tracking-[0.14em] text-muted-foreground"><span>2 · Stress-test your thinking</span><span>Step 2 of 3</span></div><div className="hf-progress"><span className="w-2/3" /></div></div>
+      <p className="hf-kicker">A little useful friction</p>
+      <h1 className="mt-2 max-w-3xl font-serif text-4xl tracking-tight md:text-5xl">Give your best idea<br />a friendly fight.</h1>
       <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">Choose one kind of productive pressure. Respond in your own words, then decide what belongs in the draft.</p>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_20rem]">
@@ -90,9 +91,9 @@ export function MCPSetupPage() {
           </Card>
 
           <section aria-labelledby="challenge-type">
-            <h2 id="challenge-type" className="mb-3 font-serif text-xl">Choose the challenge</h2>
+            <h2 id="challenge-type" className="mb-3 font-serif text-2xl">Pick your sparring partner</h2>
             <div className="grid gap-3 sm:grid-cols-2">
-              {challengeModes.map((option) => <button key={option.id} type="button" onClick={() => setMode(option.id)} className={`rounded-lg border p-4 text-left transition-colors ${mode === option.id ? "border-primary bg-primary/5 ring-1 ring-primary" : "border-border bg-card hover:bg-muted/50"}`}>
+              {challengeModes.map((option) => <button key={option.id} type="button" onClick={() => setMode(option.id)} className={`rounded-2xl border-2 p-4 text-left transition-all ${mode === option.id ? "border-primary bg-[#e3f7f0] shadow-[0_3px_0_rgba(27,117,97,0.12)]" : "border-border bg-card hover:-translate-y-px hover:bg-[#fffdf6]"}`}>
                 <p className="font-medium">{option.label}</p>
                 <p className="mt-1 text-sm leading-5 text-muted-foreground">{option.description}</p>
               </button>)}
@@ -134,7 +135,7 @@ export function MCPSetupPage() {
         </div>
 
         <aside className="space-y-4">
-          <Card className="border-primary/20 bg-secondary/40">
+          <Card className="border-[#b9e2d7] bg-[#e3f7f0]">
             <CardHeader><Scale className="h-5 w-5 text-primary" /><CardTitle className="text-xl">Your call</CardTitle></CardHeader>
             <CardContent className="leading-6 text-muted-foreground">AI can challenge the work. It does not get to decide what you believe, write, or publish.</CardContent>
           </Card>

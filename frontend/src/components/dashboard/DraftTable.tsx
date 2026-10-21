@@ -11,8 +11,9 @@ type DraftTableProps = {
 
 export function DraftTable({ drafts }: DraftTableProps) {
   return (
-    <div className="overflow-hidden rounded-[20px] border border-ml-grey-lightest bg-white shadow-[0_20px_70px_rgba(15,23,42,0.05)]">
-      <div className="grid grid-cols-[minmax(0,2.6fr)_1fr_0.7fr_1fr_1fr] gap-4 border-b border-ml-grey-lightest px-6 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+    <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-[0_7px_0_rgba(41,88,78,0.08)]">
+      <div className="flex items-center justify-between border-b border-border px-6 py-5"><div><p className="hf-kicker">Your library</p><p className="mt-1 font-serif text-2xl font-semibold">Ideas you are growing</p></div><span className="rounded-full bg-secondary px-3 py-1 text-xs font-bold text-secondary-foreground">{drafts.length} total</span></div>
+      <div className="hidden grid-cols-[minmax(0,2.6fr)_1fr_0.7fr_1fr_1fr] gap-4 border-b border-border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground md:grid">
         <span>Title</span>
         <span>Status</span>
         <span>Words</span>
@@ -31,8 +32,8 @@ export function DraftTable({ drafts }: DraftTableProps) {
             <div
               key={draft.id}
               className={cn(
-                "grid grid-cols-[minmax(0,2.6fr)_1fr_0.7fr_1fr_1fr] gap-4 px-6 py-5 transition",
-                "hover:bg-white-200/70",
+                "grid gap-3 px-6 py-5 transition md:grid-cols-[minmax(0,2.6fr)_1fr_0.7fr_1fr_1fr]",
+                "hover:bg-[#fffaf0]",
               )}
             >
               <div>

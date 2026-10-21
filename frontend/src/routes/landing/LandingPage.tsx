@@ -62,15 +62,16 @@ export function LandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white-200 lg:flex">
+    <div className="min-h-screen bg-[#fffaf0] lg:flex">
       <LeftPanel />
       <main className="flex flex-1 items-center justify-center px-6 py-12 lg:px-12">
         <div className="w-full max-w-[34rem]">
           <p className="font-display text-[1.75rem] font-semibold tracking-[-0.04em] text-foreground lg:hidden">
             HumanFirst
           </p>
-          <h1 className="mt-8 font-display text-[3rem] font-semibold tracking-[-0.05em] text-foreground">
-            Create your account
+          <p className="hf-kicker mt-8">Your thinking deserves a home</p>
+          <h1 className="mt-2 font-serif text-[3.2rem] font-semibold tracking-[-0.06em] text-foreground">
+            Begin with<br />your own voice.
           </h1>
           <p className="mt-3 text-lg text-ml-grey-dark">
             Start writing. Connect your AI after the core piece is yours.
@@ -82,7 +83,7 @@ export function LandingPage() {
             </div>
           ) : null}
 
-          <div className="mt-8 rounded-[24px] border border-ml-grey-lightest bg-white px-6 py-7 shadow-[0_24px_80px_rgba(15,23,42,0.08)] lg:px-8">
+          <div className="mt-8 rounded-3xl border border-border bg-white px-6 py-7 shadow-[0_7px_0_rgba(41,88,78,0.08)] lg:px-8">
             <form className="grid gap-5" onSubmit={handleSubmit}>
               <AuthField
                 label="Name"
@@ -113,7 +114,7 @@ export function LandingPage() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-2 inline-flex h-12 items-center justify-center rounded-[14px] bg-ml-red px-5 text-sm font-semibold text-white transition hover:bg-[#8f0909] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ml-red focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-ml-grey-lightest disabled:text-muted-foreground"
+                className="mt-2 inline-flex h-12 items-center justify-center rounded-2xl bg-primary px-5 text-sm font-bold text-primary-foreground shadow-[0_4px_0_rgba(19,103,88,0.4)] transition hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isSubmitting ? "Creating account..." : "Create account"}
               </button>
@@ -158,7 +159,7 @@ function AuthField({
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         className={cn(
-          "h-12 rounded-[14px] border bg-white-200 px-4 text-base text-foreground outline-none transition placeholder:text-muted-foreground focus:border-ml-blue focus:ring-2 focus:ring-ml-blue/20",
+          "h-12 rounded-2xl border bg-[#fffdf8] px-4 text-base text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20",
           error
             ? "border-destructive bg-destructive-bg"
             : "border-ml-grey-lighter",
