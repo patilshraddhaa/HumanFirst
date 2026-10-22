@@ -11,7 +11,7 @@ type DraftTableProps = {
 
 export function DraftTable({ drafts }: DraftTableProps) {
   return (
-    <div className="overflow-hidden border-y border-border bg-white">
+    <div className="overflow-hidden border border-border bg-white">
       <div className="flex items-center justify-between border-b border-border px-6 py-5"><div><p className="hf-kicker">Your library</p><p className="mt-1 font-serif text-2xl font-medium">Drafts and essays</p></div><span className="font-mono text-xs text-muted-foreground">{drafts.length} total</span></div>
       <div className="hidden grid-cols-[minmax(0,2.6fr)_1fr_0.7fr_1fr_1fr] gap-4 border-b border-border px-6 py-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground md:grid">
         <span>Title</span>
@@ -20,7 +20,7 @@ export function DraftTable({ drafts }: DraftTableProps) {
         <span>Last edited</span>
         <span>Actions</span>
       </div>
-      <div className="divide-y divide-ml-grey-lightest">
+      <div className="divide-y divide-border">
         {drafts.map((draft) => {
           const title = (draft.title ?? "").trim() || "Untitled";
           const continuePath = draft.locked_at

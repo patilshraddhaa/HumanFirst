@@ -9,7 +9,6 @@ import {
 } from "./features/draft-flow";
 import { DraftPreviewPage } from "./routes/drafts/preview/DraftPreviewPage";
 import { MCPSetupPage } from "./routes/drafts/setup/MCPSetupPage";
-import { WriteEditor } from "./features/write-editor";
 import { PublicReadPage } from "./routes/posts/read/PublicReadPage";
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -61,8 +60,8 @@ function AppRoutes() {
         }
       />
 
-      {/* Dev-only standalone editor */}
-      <Route path="/editor" element={<WriteEditor />} />
+      {/* Retired standalone prototype */}
+      <Route path="/editor" element={<Navigate to="/dashboard" replace />} />
 
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

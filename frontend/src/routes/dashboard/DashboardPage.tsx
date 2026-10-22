@@ -2,12 +2,11 @@ import { useMemo, useState } from "react";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-import { useCreateDraft, useGetDrafts, useMcpPing } from "../../api/drafts";
+import { useCreateDraft, useGetDrafts } from "../../api/drafts";
 import { getErrorMessage } from "../../api/errors";
 import { DraftEmptyState } from "../../components/dashboard/DraftEmptyState";
 import { DraftTable } from "../../components/dashboard/DraftTable";
 import { DraftTableSkeleton } from "../../components/dashboard/DraftTableSkeleton";
-import { McpConnectionChip } from "../../components/dashboard/McpConnectionChip";
 import { Topbar } from "../../components/Topbar";
 import { useAuth } from "../../context/AuthContext";
 
@@ -17,7 +16,6 @@ export function DashboardPage() {
   const [errorToast, setErrorToast] = useState<string | null>(null);
   const draftsQuery = useGetDrafts(Boolean(user));
   const createDraft = useCreateDraft();
-  const mcpQuery = useMcpPing(Boolean(user));
 
   const publishedCount = useMemo(
     () =>
@@ -43,16 +41,7 @@ export function DashboardPage() {
 
   return (
     <div className="hf-page">
-      <Topbar
-        center={
-          <McpConnectionChip
-            isTesting={mcpQuery.isFetching}
-            onTestConnection={() => void mcpQuery.refetch()}
-            status={mcpQuery.data}
-            user={user}
-          />
-        }
-      >
+      <Topbar>
         <button
           type="button"
           onClick={handleCreateDraft}
@@ -61,8 +50,8 @@ export function DashboardPage() {
         >
           <Plus className="mr-1.5 h-4 w-4" />{createDraft.isPending ? "Creating..." : "New draft"}
         </button>
-        <div className="flex items-center gap-3 rounded-full border border-ml-grey-lightest bg-white px-2 py-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#5C6070] text-sm font-semibold text-white">
+        <div className="flex items-center gap-3 border-l border-border pl-3">
+          <div className="flex h-8 w-8 items-center justify-center border border-foreground bg-white font-mono text-xs">
             {(user.name ?? user.display_name ?? "?")
               .split(" ")
               .filter(Boolean)
@@ -75,7 +64,7 @@ export function DashboardPage() {
             <button
               type="button"
               onClick={logout}
-              className="text-xs text-ml-blue transition hover:text-[#143b60]"
+              className="text-xs text-primary transition hover:underline"
             >
               Sign out
             </button>
@@ -94,7 +83,7 @@ export function DashboardPage() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 border-y border-border bg-[#f7f6f1] px-5 py-5 md:grid-cols-[1fr_16rem]">
+        <div className="mt-10 grid gap-6 border border-border bg-[#f7f6f1] px-5 py-5 md:grid-cols-[1fr_16rem]">
           <section>
             <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted-foreground">A simple rule</p>
             <p className="mt-2 max-w-xl font-serif text-xl leading-8">Form your position before you ask AI to improve it.</p>

@@ -69,9 +69,7 @@
 @layer components {
   .hf-page {
     min-height: 100vh;
-    background-color: #ebeae4;
-    background-image: linear-gradient(rgba(21, 21, 21, 0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(21, 21, 21, 0.06) 1px, transparent 1px);
-    background-size: 32px 32px;
+    background: #ebeae4;
   }
 
   .hf-kicker {
